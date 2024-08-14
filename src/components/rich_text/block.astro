@@ -1,0 +1,12 @@
+---
+const { node, blockComponents } = Astro.props;
+
+const node_type =
+    node.fields.blockType in blockComponents
+        ? node.fields.blockType
+        : "unknown";
+
+const Component = blockComponents[node_type];
+---
+
+<Component blockComponents={blockComponents} block={node.fields} />

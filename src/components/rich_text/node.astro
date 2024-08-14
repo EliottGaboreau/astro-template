@@ -1,0 +1,23 @@
+---
+const { blockComponents, components, node } = Astro.props;
+
+const node_type = node.type in components ? node.type : "unknown";
+
+const Component = components[node_type];
+---
+
+{
+    node.children ? (
+        <Component node={node}>
+            {node.children.map((child) => (
+                <Astro.self
+                    blockComponents={blockComponents}
+                    components={components}
+                    node={child}
+                />
+            ))}
+        </Component>
+    ) : (
+        <Component blockComponents={blockComponents} node={node} />
+    )
+}
