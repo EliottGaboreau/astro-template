@@ -29,6 +29,7 @@ const base64 = import.meta.env.PROD ? await getBase64Placeholder(url) : "";
     class="m-1 md:m-2 block relative overflow-hidden"
     data-pswp-width={upload.width}
     data-pswp-height={upload.height}
+    aria-label="Image detail"
     data-pswp-srcset={dynamicImage.srcSet.attribute}
     target="_blank"
 >

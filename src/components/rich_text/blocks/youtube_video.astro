@@ -2,14 +2,29 @@
 import { getId } from "../../../lib/youtube";
 
 const { block } = Astro.props;
+
+const videoId = getId(block.link);
+
+const url = `https://www.googleapis.com/youtube/v3/videos`;
+const params = {
+    id: videoId,
+    key: import.meta.env.YOUTUBE_DATA_API_KEY,
+    part: "snippet",
+};
+
+const videoTitle = await fetch(
+    url + "?" + new URLSearchParams(params).toString(),
+)
+    .then((r) => r.json())
+    .then((data) => data.items[0].snippet.title);
 ---
 
 <lite-youtube
-    videoid={getId(block.link)}
-    playlabel={block.blockName}
+    videoid={videoId}
+    playlabel={videoTitle}
     style={`background-image: url('https://i.ytimg.com/vi/${getId(block.link)}/hqdefault.jpg');`}
 >
-    <a href={block.link} class="lty-playbtn" title={block.blockName}>
-        <span class="lyt-visually-hidden">{block.blockName}</span>
+    <a href={block.link} class="lty-playbtn" title={videoTitle}>
+        <span class="lyt-visually-hidden">{videoTitle}</span>
     </a>
 </lite-youtube>

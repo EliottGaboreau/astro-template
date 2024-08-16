@@ -3,22 +3,25 @@ import { ViewTransitions } from "astro:transitions";
 import { fade } from "astro:transitions";
 import "../external/photoswipe.css";
 import "../external/lite-yt-embed.css";
+
+const { title, description } = Astro.props;
 ---
 
 <html lang="fr">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Template Title</title>
         <style>
             /* @font-face {
                 font-family: "Lineal";
                 src: url("../fonts/LinealVF.woff2") format("woff2");
             } */
         </style>
-        <!-- <link rel="stylesheet" href="/lite-yt-embed.css" />
-        <link rel="stylesheet" href="/photoswipe.css" /> -->
         <script src="../external/lite-yt-embed.js"></script>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+
+        <slot name="header" />
     </head>
 
     <ViewTransitions />
@@ -32,4 +35,6 @@ import "../external/lite-yt-embed.css";
             <slot />
         </main>
     </body>
+
+
 </html>

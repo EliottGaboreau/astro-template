@@ -136,6 +136,10 @@ export interface Page {
     cover?: number | Image | null;
     organization?: (number | null) | Organization;
     slug?: string | null;
+    meta?: {
+        title?: string | null;
+        description?: string | null;
+    };
     updatedAt: string;
     createdAt: string;
 }
