@@ -1,11 +1,15 @@
 ---
-import Upload from "../upload.astro";
 import GalleryItem from "./gallery_item.astro";
+import type { Image } from "../../../types";
+
+interface Upload {
+    images: Image;
+}
 
 const { block } = Astro.props;
 ---
 
-<script type="module">
+<script is:inline type="module">
     import PhotoSwipeLightbox from "/photoswipe-lightbox.esm.min.js";
     const lightbox = new PhotoSwipeLightbox({
         gallery: ".gallery-container",
@@ -22,7 +26,7 @@ const { block } = Astro.props;
             block.images.slice(Math.floor(block.images.length / 2)),
         ].map((sub_album) => (
             <div class="flex flex-col">
-                {sub_album.map((upload) => (
+                {sub_album.map((upload: Upload) => (
                     <GalleryItem upload={upload.images} css_class="m-2" />
                 ))}
             </div>

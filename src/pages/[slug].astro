@@ -6,6 +6,8 @@ import {
     defaultBlockComponents,
 } from "../components/rich_text/default_components";
 
+import type { Page } from "../types";
+
 export async function getStaticPaths() {
     try {
         const params = new URLSearchParams({
@@ -34,6 +36,10 @@ export async function getStaticPaths() {
     } catch (err) {
         console.log(err);
     }
+}
+
+interface Props {
+    page: Page;
 }
 
 const { page } = Astro.props;

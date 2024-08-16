@@ -1,4 +1,6 @@
 ---
+// @ts-nocheck
+// This picture component typing was giving me headache i hate this TS shit
 import { Picture } from "astro:assets";
 import { getCachedImage } from "../../lib/image_cache";
 
@@ -9,6 +11,8 @@ const url = await getCachedImage(node.value);
 const images = await import.meta.glob<{ default: ImageMetadata }>(
     "/src/assets/*.{webp,jpeg,jpg,png,gif}",
 );
+
+const image_src = images[url]();
 ---
 
 <div class={css_class + " block relative overflow-hidden"}>

@@ -5,6 +5,11 @@ const { block } = Astro.props;
 ---
 
 <lite-youtube
-    class="m-auto my-4"
     videoid={getId(block.link)}
-    playlabel={block.blockName}></lite-youtube>
+    playlabel={block.blockName}
+    style={`background-image: url('https://i.ytimg.com/vi/${getId(block.link)}/hqdefault.jpg');`}
+>
+    <a href={block.link} class="lty-playbtn" title={block.blockName}>
+        <span class="lyt-visually-hidden">{block.blockName}</span>
+    </a>
+</lite-youtube>

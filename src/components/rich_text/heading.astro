@@ -1,9 +1,15 @@
 ---
 const { node } = Astro.props;
 
-const Tag = node.tag;
+type Heading = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 
-const class_name_mapping = {
+type HeadingToClassName = {
+    [Key in Heading]: string;
+};
+
+const Tag: Heading = node.tag;
+
+const class_name_mapping: HeadingToClassName = {
     h1: "text-5xl bold",
     h2: "text-2xl bold",
     h3: "text-lg bold",
@@ -13,6 +19,6 @@ const class_name_mapping = {
 };
 ---
 
-<Tag className={class_name_mapping[Tag]}>
+<Tag class={class_name_mapping[Tag]}>
     <slot />
 </Tag>

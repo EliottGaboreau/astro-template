@@ -3,8 +3,6 @@ import { NodeFormat } from "../../lib/node_format";
 
 const { node } = Astro.props;
 
-let text = node.text;
-
 const is_bold = node.format & NodeFormat.IS_BOLD;
 const is_italic = !is_bold && node.format & NodeFormat.IS_ITALIC;
 const is_strikethrough =

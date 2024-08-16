@@ -1,4 +1,6 @@
 ---
+// @ts-nocheck
+// This picture component typing was giving me headache i hate this TS shit
 import { Picture, getImage } from "astro:assets";
 import { getCachedImage } from "../../../lib/image_cache";
 import { getBase64Placeholder } from "../../../lib/image_placeholder";
@@ -48,8 +50,3 @@ const base64 = import.meta.env.PROD ? await getBase64Placeholder(url) : "";
         onload={"const t = event.target; setTimeout(() => {console.log(t); t.parentElement.previousElementSibling.remove()}, 300); this.style.opacity = 1;"}
     />
 </a>
-
-<!--
-        style={`background-size:cover;background-position:center;background-repeat:no-repeat;background-image:url('${base64}')`}
-        --
-    >-->

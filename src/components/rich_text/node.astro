@@ -9,7 +9,7 @@ const Component = components[node_type];
 {
     node.children ? (
         <Component node={node}>
-            {node.children.map((child) => (
+            {node.children.map((child: any) => (
                 <Astro.self
                     blockComponents={blockComponents}
                     components={components}
