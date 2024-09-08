@@ -3,8 +3,18 @@ import { ViewTransitions } from "astro:transitions";
 import { fade } from "astro:transitions";
 import "../external/photoswipe.css";
 import "../external/lite-yt-embed.css";
+import Navigation from "../components/navigation.astro";
 
 const { title, description } = Astro.props;
+
+
+const navigation_links = [
+    {
+        href: '/products',
+        label: 'Products'
+    },
+]
+
 ---
 
 <html lang="fr">
@@ -27,6 +37,7 @@ const { title, description } = Astro.props;
     <ViewTransitions />
 
     <body>
+        <Navigation navigation_links={navigation_links}/>
         <main
             transition:animate={fade({
                 duration: "0.2s",

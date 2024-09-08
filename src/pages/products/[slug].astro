@@ -1,0 +1,61 @@
+---
+//@ts-nocheck
+import Layout from "../../layouts/layout.astro";
+import Node from "../../components/rich_text/node.astro";
+import {
+    defaultComponents,
+    defaultBlockComponents,
+} from "../../components/rich_text/default_components";
+import type { Image } from "../../types";
+import type { Page, Product } from "../../types";
+import Gallery from "../../components/products/gallery.astro";
+import { displayPrice } from "../../lib/price";
+
+export async function getStaticPaths() {
+    try {
+        const params = new URLSearchParams({
+            limit: "100",
+        });
+
+        const response = await fetch(
+            `${import.meta.env.PAYLOAD_API_URL}/products?${params}`,
+            {
+                headers: {
+                    Authorization: `users API-Key ${import.meta.env.PAYLOAD_API_TOKEN}`,
+                },
+            },
+        ).then((r) => r.json());
+
+        // console.log(response.docs);
+
+        const pages = response.docs.map((item) => ({
+            params: { slug: item.slug },
+            props: {
+                product: item,
+            },
+        }));
+
+        return pages;
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+interface Props {
+    product: Product;
+}
+
+const { product } = Astro.props;
+---
+
+<Layout
+    title={product.title || product.title}
+>
+    <h1 class="text-2xl text-center md:text-4xl m-2">{product.title}</h1>
+    <div class="flex flex-row max-w-2xl m-auto">
+        <Gallery images={product.images} />
+        <span>{displayPrice(product.price)}</span>
+        
+    </div>
+    
+</Layout>
