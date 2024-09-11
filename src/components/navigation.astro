@@ -1,12 +1,13 @@
 ---
+import OrderPreview from "./ecommerce/order_preview.svelte";
 
 type NavigationLink = {
-    href: string,
-    label: string
-}
+    href: string;
+    label: string;
+};
 
 interface Props {
-    navigation_links: NavigationLink[]
+    navigation_links: NavigationLink[];
 }
 
 const { navigation_links } = Astro.props;
@@ -23,11 +24,13 @@ const { navigation_links } = Astro.props;
             {
                 navigation_links.map((navigation_link) => (
                     <a class="flex-1" href={navigation_link.href}>
-                        <h2 class="sm:text-lg md:text-xl p-2">{navigation_link.label}</h2>
+                        <h2 class="sm:text-lg md:text-xl p-2">
+                            {navigation_link.label}
+                        </h2>
                     </a>
                 ))
             }
-            <span>toto</span>
+            <OrderPreview client:load />
         </div>
     </div>
 </nav>

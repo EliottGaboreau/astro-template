@@ -7,14 +7,12 @@ import Navigation from "../components/navigation.astro";
 
 const { title, description } = Astro.props;
 
-
 const navigation_links = [
     {
-        href: '/products',
-        label: 'Products'
+        href: "/products",
+        label: "Products",
     },
-]
-
+];
 ---
 
 <html lang="fr">
@@ -37,7 +35,7 @@ const navigation_links = [
     <ViewTransitions />
 
     <body>
-        <Navigation navigation_links={navigation_links}/>
+        <Navigation navigation_links={navigation_links} />
         <main
             transition:animate={fade({
                 duration: "0.2s",

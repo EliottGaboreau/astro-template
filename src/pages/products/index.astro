@@ -1,13 +1,13 @@
 ---
 import Layout from "../../layouts/layout.astro";
-import ListItem from "../../components/products/list_item.astro";
+import ListItem from "../../components/ecommerce/list_item.astro";
 
 const params = new URLSearchParams({
 	limit: "100",
 });
 
 const response = await fetch(
-	`${import.meta.env.PAYLOAD_API_URL}/products?${params}`,
+	`${import.meta.env.PUBLIC_PAYLOAD_API_URL}/products?${params}`,
 	{
 		headers: {
 			Authorization: `users API-Key ${import.meta.env.PAYLOAD_API_TOKEN}`,
@@ -18,5 +18,5 @@ const response = await fetch(
 
 <Layout>
 	<h1 class="text-2xl text-center md:text-4xl m-2">Products</h1>
-	{response.docs.map((product) => <ListItem product={product}/>)}
+	{response.docs.map((product) => <ListItem product={product} />)}
 </Layout>

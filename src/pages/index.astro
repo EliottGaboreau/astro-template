@@ -6,7 +6,7 @@ const params = new URLSearchParams({
 });
 
 const response = await fetch(
-	`${import.meta.env.PAYLOAD_API_URL}/pages?${params}`,
+	`${import.meta.env.PUBLIC_PAYLOAD_API_URL}/pages?${params}`,
 	{
 		headers: {
 			Authorization: `users API-Key ${import.meta.env.PAYLOAD_API_TOKEN}`,
