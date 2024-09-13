@@ -5,5 +5,5 @@
 
     order.fetchOrder();
 
-    $inspect(order);
+    $inspect(order.items);
 </script>

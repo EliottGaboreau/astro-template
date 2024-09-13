@@ -10,6 +10,7 @@ import type { Image } from "../../types";
 import type { Page, Product } from "../../types";
 import Gallery from "../../components/ecommerce/gallery.astro";
 import { displayPrice } from "../../lib/price";
+import AddItemToOrder from "../../components/ecommerce/add_item_to_order.svelte";
 
 export async function getStaticPaths() {
     try {
@@ -53,5 +54,6 @@ const { product } = Astro.props;
     <div class="flex flex-row max-w-2xl m-auto">
         <Gallery images={product.images} />
         <span>{displayPrice(product.price)}</span>
+        <AddItemToOrder client:load product={product} />
     </div>
 </Layout>
