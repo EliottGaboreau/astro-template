@@ -1,5 +1,5 @@
 ---
-import OrderPreview from "./ecommerce/order_preview.svelte";
+import CartNavigationLink from "./ecommerce/cart_navigation_link.svelte";
 
 type NavigationLink = {
     href: string;
@@ -30,7 +30,7 @@ const { navigation_links } = Astro.props;
                     </a>
                 ))
             }
-            <OrderPreview client:load />
+            <CartNavigationLink client:load />
         </div>
     </div>
 </nav>
