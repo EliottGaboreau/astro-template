@@ -21,21 +21,19 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
     "/src/assets/*.{webp,jpeg,jpg,png,gif}",
 );
 
-const product_thumbail_map = await response.docs.reduce(
-    async (accumulator, product) => {
-        const url = await getCachedImage(product.images[0]);
+let product_thumbail_map = {};
 
-        accumulator[product.id] = (
-            await getImage({
-                src: (await images[url]()).default,
-                width: 100,
-                height: 100,
-            })
-        ).src;
-        return accumulator;
-    },
-    {},
-);
+for (const product of response.docs) {
+    const url = await getCachedImage(product.images[0]);
+
+    product_thumbail_map[product.id] = (
+        await getImage({
+            src: (await images[url]()).default,
+            width: 100,
+            height: 100,
+        })
+    ).src;
+}
 ---
 
 <Layout>
