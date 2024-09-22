@@ -27,8 +27,12 @@ const processed_images: ProcessedImage[] = await Promise.all(
     images.map(async (image) => {
         const url = await getCachedImage(image);
 
-        console.log("URL :" + url);
-        console.log("Astro images :" + Object.keys(astro_images));
+        // Little hack, force generation of thumbnail for cart.svelte
+        const thumbnail = await getImage({
+            src: astro_images[url](),
+            width: 100,
+            height: 100,
+        });
 
         const dynamic_image = await getImage({
             src: astro_images[url](),
@@ -47,6 +51,7 @@ const processed_images: ProcessedImage[] = await Promise.all(
             url: url,
             dynamic_image: dynamic_image,
             base64: base64,
+            thumbnail: thumbnail,
         };
     }),
 );

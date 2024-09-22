@@ -1,8 +1,43 @@
 ---
 import Layout from "../layouts/layout.astro";
 import DynamicCart from "../components/ecommerce/cart.svelte";
+import { getImage } from "astro:assets";
+import { getCachedImage } from "../lib/image_cache";
+
+const params = new URLSearchParams({
+    limit: "100",
+});
+
+const response = await fetch(
+    `${import.meta.env.PUBLIC_PAYLOAD_API_URL}/products?${params}`,
+    {
+        headers: {
+            Authorization: `users API-Key ${import.meta.env.PAYLOAD_API_TOKEN}`,
+        },
+    },
+).then((r) => r.json());
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+    "/src/assets/*.{webp,jpeg,jpg,png,gif}",
+);
+
+const product_thumbail_map = await response.docs.reduce(
+    async (accumulator, product) => {
+        const url = await getCachedImage(product.images[0]);
+
+        accumulator[product.id] = (
+            await getImage({
+                src: (await images[url]()).default,
+                width: 100,
+                height: 100,
+            })
+        ).src;
+        return accumulator;
+    },
+    {},
+);
 ---
 
 <Layout>
-    <DynamicCart client:load />
+    <DynamicCart product_thumbail_map={product_thumbail_map} client:load />
 </Layout>

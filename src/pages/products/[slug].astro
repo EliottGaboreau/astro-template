@@ -11,6 +11,7 @@ import type { Page, Product } from "../../types";
 import Gallery from "../../components/ecommerce/gallery.astro";
 import { displayPrice } from "../../lib/price";
 import AddItemToOrder from "../../components/ecommerce/add_item_to_order.svelte";
+import { getImage } from "astro:assets";
 
 export async function getStaticPaths() {
     try {
@@ -26,8 +27,6 @@ export async function getStaticPaths() {
                 },
             },
         ).then((r) => r.json());
-
-        // console.log(response.docs);
 
         const pages = response.docs.map((item) => ({
             params: { slug: item.slug },

@@ -13,7 +13,6 @@ let items = $state([]);
 export function getOrder() {
 
     async function fetchOrder() {
-        console.log('----------------------------')
         const response = await fetch(`${PUBLIC_PAYLOAD_API_URL}/get_current_order`, {
             credentials: "include",
             headers: {
