@@ -1,6 +1,5 @@
 <script>
     import { getOrder } from "../../lib/order.svelte";
-    import { getImage } from "astro:assets";
 
     let order = getOrder();
 

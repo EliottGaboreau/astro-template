@@ -23,10 +23,10 @@ export async function getStaticPaths() {
             },
         ).then((r) => r.json());
 
-        const pages = response.docs.map((item) => ({
-            params: { slug: item.slug },
+        const pages = response.docs.map((page: Page) => ({
+            params: { slug: page.slug },
             props: {
-                page: item,
+                page: page,
             },
         }));
 

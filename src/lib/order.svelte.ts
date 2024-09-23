@@ -2,7 +2,7 @@ import type { Product } from "../types";
 
 const PUBLIC_PAYLOAD_API_URL = import.meta.env.PUBLIC_PAYLOAD_API_URL
 
-interface Item {
+export interface Item {
     product: number | Product;
     quantity: number;
     price: number;
