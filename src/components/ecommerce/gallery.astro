@@ -6,16 +6,11 @@ import type { Image } from "../../types";
 import type { GetImageResult } from "astro";
 import { getBase64Placeholder } from "../../lib/image_placeholder";
 
+import DynamicGallery from "./gallery.svelte";
+
 interface Props {
     images: Image[];
 }
-
-type ProcessedImage = {
-    source_image: Image;
-    url: string;
-    dynamic_image: GetImageResult;
-    base64: string;
-};
 
 const { images } = Astro.props;
 
@@ -23,11 +18,10 @@ const astro_images = await import.meta.glob<{ default: ImageMetadata }>(
     "/src/assets/*.{webp,jpeg,jpg,png,gif}",
 );
 
-const processed_images: ProcessedImage[] = await Promise.all(
+const processed_images = await Promise.all(
     images.map(async (image) => {
         const url = await getCachedImage(image);
 
-        // Little hack, force generation of thumbnail for cart.svelte
         const thumbnail = await getImage({
             src: astro_images[url](),
             width: 100,
@@ -47,69 +41,15 @@ const processed_images: ProcessedImage[] = await Promise.all(
             : "";
 
         return {
-            source_image: image,
-            url: url,
-            dynamic_image: dynamic_image,
+            ...dynamic_image,
+            width: image.width,
+            height: image.height,
             base64: base64,
-            thumbnail: thumbnail,
+            thumbnail: thumbnail.src,
         };
     }),
 );
-
-const cover = processed_images[0];
 ---
 
-<script is:inline type="module">
-    import PhotoSwipeLightbox from "/photoswipe-lightbox.esm.min.js";
-    const lightbox = new PhotoSwipeLightbox({
-        gallery: ".gallery-container",
-        children: "a",
-        pswpModule: () => import("/photoswipe.esm.min.js"),
-    });
-    lightbox.init();
-</script>
 
-<div class="gallery-container">
-    <a
-        href={cover.dynamic_image.src}
-        class="m-1 md:m-2 block relative overflow-hidden"
-        data-pswp-width={cover.source_image.width}
-        data-pswp-height={cover.source_image.height}
-        aria-label="Image detail"
-        data-pswp-srcset={cover.dynamic_image.srcSet.attribute}
-        target="_blank"
-    >
-        <img
-            aria-hidden
-            alt=""
-            class="absolute inset-0 w-full h-full transform scale-150 filter blur-2xl z-[-1] placeholder-image"
-            src={cover.base64}
-        />
-        <Picture
-            src={astro_images[cover.url]()}
-            format="webp"
-            fallbackFormat="jpg"
-            class="opacity-0 transition-opacity duration-200 ease-in-out"
-            widths={[360, 540, 720, 1200, 1600, cover.source_image.width]}
-            sizes="50vw"
-            inferSize
-            alt={cover.source_image.alt || ""}
-            onload={"const t = event.target; setTimeout(() => {console.log(t); t.parentElement.previousElementSibling.remove()}, 300); this.style.opacity = 1;"}
-        />
-    </a>
-    <!-- <div>
-        {
-            processed_images.slice(1).map((processed_image) => <Picture
-                src={astro_images[processed_image.url]()}
-                format="webp"
-                fallbackFormat="jpg"
-                class="opacity-0 transition-opacity duration-200 ease-in-out"
-                widths={[360, 540, 720, 1200, 1600, upload.width]}
-                sizes="50vw"
-                inferSize
-                alt={upload.alt || ""}
-                onload={"const t = event.target; setTimeout(() => {console.log(t); t.parentElement.previousElementSibling.remove()}, 300); this.style.opacity = 1;"}
-            />)
-        }
-    </div> -->
-</div>
+<DynamicGallery client:load images={processed_images} />

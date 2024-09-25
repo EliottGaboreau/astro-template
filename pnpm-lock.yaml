@@ -23,6 +23,9 @@ dependencies:
   dotenv:
     specifier: ^16.4.5
     version: 16.4.5
+  photoswipe:
+    specifier: ^5.4.4
+    version: 5.4.4
   plaiceholder:
     specifier: ^3.0.0
     version: 3.0.0(sharp@0.33.5)
@@ -3307,6 +3310,11 @@ packages:
     dependencies:
       lru-cache: 10.4.3
       minipass: 7.1.2
+    dev: false
+
+  /photoswipe@5.4.4:
+    resolution: {integrity: sha512-WNFHoKrkZNnvFFhbHL93WDkW3ifwVOXSW3w1UuZZelSmgXpIGiZSNlZJq37rR8YejqME2rHs9EhH9ZvlvFH2NA==}
+    engines: {node: '>= 0.12.0'}
     dev: false
 
   /picocolors@1.1.0:

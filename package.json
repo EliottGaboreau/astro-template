@@ -16,6 +16,7 @@
     "@astrojs/tailwind": "^5.1.1",
     "astro": "^4.15.8",
     "dotenv": "^16.4.5",
+    "photoswipe": "^5.4.4",
     "plaiceholder": "^3.0.0",
     "sharp": "^0.33.5",
     "svelte": "5.0.0-next.257",

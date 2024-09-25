@@ -4,7 +4,6 @@
     let order = getOrder();
 
     let { product_thumbail_map } = $props();
-    $inspect(product_thumbail_map);
 </script>
 
 <div class="max-w-2xl m-auto">

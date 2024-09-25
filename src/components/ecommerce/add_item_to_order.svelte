@@ -7,7 +7,6 @@
 
     function handleClick() {
         addItem(product);
-        // alert("Button Clicked");
     }
 </script>
 
