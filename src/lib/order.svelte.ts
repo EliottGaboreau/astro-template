@@ -36,26 +36,31 @@ export function getOrder() {
             }
         ).then(r => r.json())
 
-        $inspect(response.items)
         items = response.items;
 
     }
 
 
     async function addItem(product: number | Product) {
-        let already_present = items.find((element) => productEquals(element.product, product));
-
-        if (already_present) {
-            already_present.quantity += 1
-        } else {
-            items.push({
-                product: product,
-                quantity: 1,
-                price: typeof product === 'object' ? product.price : undefined,
-            })
-        }
+        items.push({
+            product: product,
+            quantity: 1,
+            price: typeof product === 'object' ? product.price : undefined,
+        })
         updateRemoteOrder()
     }
+
+    async function updateQuantity(index: number, new_quantity: number) {
+        items[index].quantity = new_quantity;
+        updateRemoteOrder()
+    }
+
+
+    async function removeItem(index: number) {
+        items.slice(index, 1)
+        updateRemoteOrder()
+    }
+
 
     return {
         get items() {
@@ -63,6 +68,8 @@ export function getOrder() {
         },
         fetchOrder,
         addItem,
+        updateQuantity,
+        removeItem,
     }
 }
 
