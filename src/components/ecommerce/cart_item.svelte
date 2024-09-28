@@ -1,4 +1,5 @@
 <script>
+    import { Minus, Plus } from "svelte-radix";
     let { order, index, item, thumbnail } = $props();
 
     let quantity = $state(item.quantity);
@@ -8,7 +9,7 @@
         return {
             update(value) {
                 quantity =
-                    value === null || quantity < node.min
+                    value === null || quantity < node.min || quantity > node.max
                         ? previous_quantity
                         : parseInt(value);
                 previous_quantity = quantity;
@@ -19,16 +20,26 @@
     }
 </script>
 
-<div class="flex flex-row m-4 justify-around">
+<div class="flex flex-row m-4 justify-around items-center">
     <img src={thumbnail} alt="" />
     <a href="/products/{item.product.slug}">{item.product.title}</a>
-    <button onclick={() => quantity--}>-</button>
-    <input
-        type="number"
-        bind:value={quantity}
-        step="1"
-        min="1"
-        use:validator={quantity}
-    />
-    <button onclick={() => quantity++}>+</button>
+    <div class="flex items-center">
+        <button
+            class="ring-inset p-1 ring-1 ring-gray-900 rounded-md hover:bg-gray-200 transition-colors"
+            onclick={() => quantity--}><Minus /></button
+        >
+        <input
+            class="outline-none w-[5ch] text-center"
+            type="number"
+            bind:value={quantity}
+            step="1"
+            min="1"
+            max="999"
+            use:validator={quantity}
+        />
+        <button
+            class="ring-inset p-1 ring-1 ring-gray-900 rounded-md hover:bg-gray-200 transition-colors"
+            onclick={() => quantity++}><Plus /></button
+        >
+    </div>
 </div>

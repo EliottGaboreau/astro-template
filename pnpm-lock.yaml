@@ -35,6 +35,12 @@ dependencies:
   svelte:
     specifier: 5.0.0-next.257
     version: 5.0.0-next.257
+  svelte-lucide:
+    specifier: 2.0.0-next.6
+    version: 2.0.0-next.6(svelte@5.0.0-next.257)
+  svelte-radix:
+    specifier: 2.0.0-next.4
+    version: 2.0.0-next.4(svelte@5.0.0-next.257)
   tailwindcss:
     specifier: ^3.4.12
     version: 3.4.12
@@ -3863,6 +3869,24 @@ packages:
   /supports-preserve-symlinks-flag@1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
+    dev: false
+
+  /svelte-lucide@2.0.0-next.6(svelte@5.0.0-next.257):
+    resolution: {integrity: sha512-ag517G9HRSW8kvKLhaFiFPXjhQIze8aLhsb4fituPbE+stuZPyXYtBJXsUWutbIbpGb8hDYcvfw32G5ykDjGtg==}
+    engines: {node: '>=18.0.0', npm: '>=7.0.0'}
+    peerDependencies:
+      svelte: ^5.0.0 || ^5.0.0-next.1
+    dependencies:
+      svelte: 5.0.0-next.257
+    dev: false
+
+  /svelte-radix@2.0.0-next.4(svelte@5.0.0-next.257):
+    resolution: {integrity: sha512-OX1ZfDsiCjtE3mpFx/Z/jmnGcI1rdyjdnxqHdQfIZBhVPezWJDOokHS4psTmsbmiUbfCHcHSfRaEjcUOO+sx3Q==}
+    engines: {node: '>=18.0.0', npm: '>=7.0.0'}
+    peerDependencies:
+      svelte: ^5.0.0 || ^5.0.0-next.1
+    dependencies:
+      svelte: 5.0.0-next.257
     dev: false
 
   /svelte2tsx@0.7.19(svelte@5.0.0-next.257)(typescript@5.6.2):
