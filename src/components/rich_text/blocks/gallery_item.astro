@@ -2,8 +2,8 @@
 // @ts-nocheck
 // This picture component typing was giving me headache i hate this TS shit
 import { Picture, getImage } from "astro:assets";
-import { getCachedImage } from "../../../lib/image_cache";
-import { getBase64Placeholder } from "../../../lib/image_placeholder";
+import { getCachedImage } from "@lib/image_cache";
+import { getBase64Placeholder } from "@lib/image_placeholder";
 
 const { upload, css_class = "" } = Astro.props;
 

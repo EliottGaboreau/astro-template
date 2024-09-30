@@ -1,4 +1,4 @@
-import type { Product } from "../types";
+import type { Product } from "@lib/types";
 
 const PUBLIC_PAYLOAD_API_URL = import.meta.env.PUBLIC_PAYLOAD_API_URL
 
@@ -71,11 +71,4 @@ export function getOrder() {
         updateQuantity,
         removeItem,
     }
-}
-
-
-function productEquals(left: number | Product, right: number | Product): boolean {
-    const left_id = typeof left === 'number' ? left : left.id;
-    const right_id = typeof right === 'number' ? right : right.id;
-    return left_id === right_id
 }

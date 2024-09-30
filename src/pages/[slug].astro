@@ -1,12 +1,12 @@
 ---
 import Layout from "../layouts/layout.astro";
-import Node from "../components/rich_text/node.astro";
+import Node from "@components/rich_text/node.astro";
 import {
     defaultComponents,
     defaultBlockComponents,
-} from "../components/rich_text/default_components";
+} from "@components/rich_text/default_components";
 
-import type { Page } from "../types";
+import type { Page } from "@lib/types";
 
 export async function getStaticPaths() {
     try {

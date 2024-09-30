@@ -1,5 +1,5 @@
 <script>
-    import { getOrder } from "../../lib/order.svelte";
+    import { getOrder } from "@lib/order.svelte";
     import CartItem from "./cart_item.svelte";
 
     let order = getOrder();

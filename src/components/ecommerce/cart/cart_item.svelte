@@ -22,11 +22,13 @@
 
 <div class="flex flex-row m-4 justify-around items-center">
     <img src={thumbnail} alt="" />
-    <a href="/products/{item.product.slug}">{item.product.title}</a>
+    <a class="underline" href="/products/{item.product.slug}"
+        >{item.product.title}</a
+    >
     <div class="flex items-center">
         <button
             class="ring-inset p-1 ring-1 ring-gray-900 rounded-md hover:bg-gray-200 transition-colors"
-            onclick={() => quantity--}><Minus /></button
+            onclick={() => quantity--}><Minus size={20} /></button
         >
         <input
             class="outline-none w-[5ch] text-center"
@@ -39,7 +41,7 @@
         />
         <button
             class="ring-inset p-1 ring-1 ring-gray-900 rounded-md hover:bg-gray-200 transition-colors"
-            onclick={() => quantity++}><Plus /></button
+            onclick={() => quantity++}><Plus size={20} /></button
         >
     </div>
 </div>

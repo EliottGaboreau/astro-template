@@ -1,5 +1,5 @@
 <script>
-    import { getOrder } from "../../lib/order.svelte";
+    import { getOrder } from "@lib/order.svelte";
 
     let { product } = $props();
 
@@ -10,6 +10,9 @@
     }
 </script>
 
-<button onclick={handleClick}>
+<button
+    class="ring-inset p-1 ring-1 ring-gray-900 rounded-md hover:bg-gray-200 transition-colors"
+    onclick={handleClick}
+>
     {product.title}
 </button>

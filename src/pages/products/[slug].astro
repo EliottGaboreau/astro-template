@@ -1,16 +1,16 @@
 ---
 //@ts-nocheck
-import Layout from "../../layouts/layout.astro";
-import Node from "../../components/rich_text/node.astro";
+import Layout from "@src/layouts/layout.astro";
+import Node from "@components/rich_text/node.astro";
 import {
     defaultComponents,
     defaultBlockComponents,
-} from "../../components/rich_text/default_components";
-import type { Image } from "../../types";
-import type { Page, Product } from "../../types";
-import Gallery from "../../components/ecommerce/gallery.astro";
-import { displayPrice } from "../../lib/price";
-import AddItemToOrder from "../../components/ecommerce/add_item_to_order.svelte";
+} from "@components/rich_text/default_components";
+import type { Image } from "@lib/types";
+import type { Page, Product } from "@lib/types";
+import Gallery from "@components/ecommerce/product/gallery.astro";
+import { displayPrice } from "@lib/price";
+import AddItemToOrder from "@components/ecommerce/product/add_item_to_order.svelte";
 import { getImage } from "astro:assets";
 
 export async function getStaticPaths() {
@@ -49,10 +49,14 @@ const { product } = Astro.props;
 ---
 
 <Layout title={product.title || product.title}>
-    <h1 class="text-2xl text-center md:text-4xl m-2">{product.title}</h1>
-    <div class="flex flex-row max-w-2xl m-auto">
-        <Gallery images={product.images} />
-        <span>{displayPrice(product.price)}</span>
-        <AddItemToOrder client:load product={product} />
+    <div class="grid grid-cols-2 max-w-4xl m-auto">
+        <div>
+            <Gallery images={product.images} />
+        </div>
+        <div class="flex flex-col">
+            <h1 class="text-2xl text-center md:text-4xl m-2">{product.title}</h1>
+            <span>{displayPrice(product.price)}</span>
+            <AddItemToOrder client:load product={product} />
+        </div>
     </div>
 </Layout>
