@@ -17,5 +17,4 @@
             thumbnail={product_thumbail_map[item.product.id]}
         />
     {/each}
-    <!-- onchange={(value) => order.updateQuantity(index, value)} -->
 </div>

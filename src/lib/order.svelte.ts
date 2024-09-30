@@ -57,8 +57,6 @@ export function getOrder() {
 
 
     async function removeItem(index: number) {
-        // console.log('toto')
-        // items.splice(index, 1)
         items = items.filter((_, i) => i !== index)
         updateRemoteOrder()
     }

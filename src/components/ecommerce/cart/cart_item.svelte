@@ -21,7 +21,9 @@
     }
 
     $effect(() => {
-        quantity = item.quantity;
+        if (item.quantity !== quantity) {
+            quantity = item.quantity;
+        }
     });
 </script>
 
