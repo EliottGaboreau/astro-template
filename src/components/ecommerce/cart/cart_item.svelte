@@ -1,5 +1,6 @@
 <script>
-    import { Minus, Plus, Cross1 } from "svelte-radix";
+    import { Minus, Plus, Trash2 } from "svelte-lucide";
+
     let { order, index, item, thumbnail } = $props();
 
     let quantity = $state(item.quantity);
@@ -51,6 +52,6 @@
 
     <button
         class="p-2 hover:ring-red-600 rounded-full hover:bg-red-600 hover:text-white transition-colors"
-        onclick={() => order.removeItem(index)}><Cross1 size={20} /></button
+        onclick={() => order.removeItem(index)}><Trash2 size={20} /></button
     >
 </div>
