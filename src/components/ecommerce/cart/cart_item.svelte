@@ -1,5 +1,5 @@
 <script>
-    import { Minus, Plus } from "svelte-radix";
+    import { Minus, Plus, Cross1 } from "svelte-radix";
     let { order, index, item, thumbnail } = $props();
 
     let quantity = $state(item.quantity);
@@ -18,6 +18,10 @@
             },
         };
     }
+
+    $effect(() => {
+        quantity = item.quantity;
+    });
 </script>
 
 <div class="flex flex-row m-4 justify-around items-center">
@@ -44,4 +48,9 @@
             onclick={() => quantity++}><Plus size={20} /></button
         >
     </div>
+
+    <button
+        class="p-2 hover:ring-red-600 rounded-full hover:bg-red-600 hover:text-white transition-colors"
+        onclick={() => order.removeItem(index)}><Cross1 size={20} /></button
+    >
 </div>
