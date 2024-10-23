@@ -4,6 +4,6 @@ const { node } = Astro.props;
 const Tag = node.tag; // 'ol' or 'ul'
 ---
 
-<Tag>
+<Tag class={node.tag === "ul" ? "list-disc" : "list-decimal"}>
     <slot />
 </Tag>
