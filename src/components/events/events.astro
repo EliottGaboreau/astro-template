@@ -1,0 +1,38 @@
+---
+import { formatISO, endOfDay  } from "date-fns";
+import qs from "qs";
+import DynamicEvents from "./events.svelte";
+
+const PUBLIC_PAYLOAD_API_URL = import.meta.env.PUBLIC_PAYLOAD_API_URL;
+const params = {
+    where: {
+        date: {
+            greater_than: formatISO(new Date()),
+        },
+    },
+    sort: {
+        date: "-date",
+    },
+};
+
+console.log(
+    `${PUBLIC_PAYLOAD_API_URL}/events${qs.stringify(params, { addQueryPrefix: true })}`,
+);
+
+const response = await fetch(
+    `${PUBLIC_PAYLOAD_API_URL}/events${qs.stringify(params, { addQueryPrefix: true })}`,
+    {
+        credentials: "include",
+        headers: {
+            Authorization: `users API-Key ${import.meta.env.PAYLOAD_API_TOKEN}`,
+        },
+    },
+)
+    .then((r) => {
+        console.log(r);
+        return r;
+    })
+    .then((r) => r.json());
+---
+
+<DynamicEvents client:load events={response.docs} />
