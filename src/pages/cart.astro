@@ -3,19 +3,9 @@ import Layout from "../layouts/layout.astro";
 import DynamicCart from "@components/ecommerce/cart/cart.svelte";
 import { getImage } from "astro:assets";
 import { getCachedImage } from "../lib/image_cache";
+import { getAllDocs } from "@lib/payloadcms";
 
-const params = new URLSearchParams({
-    limit: "100",
-});
-
-const response = await fetch(
-    `${import.meta.env.PUBLIC_PAYLOAD_API_URL}/products?${params}`,
-    {
-        headers: {
-            Authorization: `users API-Key ${import.meta.env.PAYLOAD_API_TOKEN}`,
-        },
-    },
-).then((r) => r.json());
+const products = await getAllDocs("products", {});
 
 const images = import.meta.glob<{ default: ImageMetadata }>(
     "/src/assets/*.{webp,jpeg,jpg,png,gif}",
@@ -23,7 +13,7 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
 
 let product_thumbail_map = {};
 
-for (const product of response.docs) {
+for (const product of products) {
     const url = await getCachedImage(product.images[0]);
 
     product_thumbail_map[product.id] = (
