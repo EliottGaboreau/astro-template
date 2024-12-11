@@ -10,7 +10,19 @@ export interface Item {
 
 let items = $state([]);
 
+
 export function getOrder() {
+
+    $effect(() => {
+        const localValue = localStorage.getItem('order')
+        if (localValue)
+            items = JSON.parse(localValue)
+    })
+
+
+    $effect(() => {
+        localStorage.setItem('order', JSON.stringify(items))
+    })
 
     async function fetchOrder() {
         const response = await fetch(`${PUBLIC_PAYLOAD_API_URL}/get_current_order`, {
@@ -47,18 +59,22 @@ export function getOrder() {
             quantity: 1,
             price: typeof product === 'object' ? product.price : undefined,
         })
-        updateRemoteOrder()
     }
 
     async function updateQuantity(index: number, new_quantity: number) {
         items[index].quantity = new_quantity;
-        updateRemoteOrder()
     }
 
 
     async function removeItem(index: number) {
         items = items.filter((_, i) => i !== index)
-        updateRemoteOrder()
+    }
+
+    async function itemCount() {
+        return items.reduce(
+            (accumulator, item) => accumulator + item.quantity,
+            0,
+        );
     }
 
 
@@ -70,5 +86,7 @@ export function getOrder() {
         addItem,
         updateQuantity,
         removeItem,
+        updateRemoteOrder,
+        itemCount,
     }
 }

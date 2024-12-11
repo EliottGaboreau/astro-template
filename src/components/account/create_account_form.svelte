@@ -1,10 +1,15 @@
 <script lang="ts">
-    // let zxcvbn = require("zxcvbn");
     import zxcvbn from "zxcvbn";
 
     const PUBLIC_PAYLOAD_API_URL = import.meta.env.PUBLIC_PAYLOAD_API_URL;
     const PUBLIC_PAYLOAD_ORGANIZATION_ID = import.meta.env
         .PUBLIC_PAYLOAD_ORGANIZATION_ID;
+
+    import { getAccount } from "@lib/account.svelte";
+
+    let account = getAccount();
+
+    $inspect(account);
 
     let responseMessage: string = $state("");
     let errors = $state({});
@@ -14,19 +19,19 @@
         sending = true;
         const formData = new FormData(e.currentTarget as HTMLFormElement);
         const request_data = Object.fromEntries(formData);
-        request_data.organization = PUBLIC_PAYLOAD_ORGANIZATION_ID;
 
-        const response = await fetch(`${PUBLIC_PAYLOAD_API_URL}/customers`, {
-            method: "POST",
-            credentials: "include",
-            headers: {
-                "Content-Type": "application/json",
-                "accept-language": "fr",
-            },
-            body: JSON.stringify(request_data),
-        });
-        const data = await response.json();
+        const data = await account.createAccount(
+            request_data.email,
+            request_data.password,
+            PUBLIC_PAYLOAD_ORGANIZATION_ID,
+        );
+
         responseMessage = data.message;
+
+        if (responseMessage) {
+            account.login(request_data.email, request_data.password);
+            window.location.href = "/account";
+        }
         errors = {};
         data.errors?.map((e) =>
             e.data?.map((d) => (errors[d?.field] = d?.message)),
@@ -71,42 +76,49 @@
 </script>
 
 <form onsubmit={submit} class="max-w-lg m-auto">
-    <label class="block font-semibold">
-        Email
-        <input
-            class="mt-1 block w-full rounded-full border-2 border-black px-4 p-2"
-            type="email"
-            name="email"
-            required
-        />
-        {#if errors.email}
-            <p class="text-red-700 text-sm">{errors.email}</p>
+    {#if responseMessage}
+        <div>Compte créé avec succes, vous allez être redirigé</div>
+    {:else}
+        <label class="block font-semibold">
+            Email
+            <input
+                class="mt-1 block w-full rounded-full border-2 border-black px-4 p-2"
+                type="email"
+                name="email"
+                required
+            />
+            {#if errors.email}
+                <p class="text-red-700 text-sm">{errors.email}</p>
+            {/if}
+        </label>
+        <label class="block font-semibold">
+            Password :
+            <input
+                class="mt-1 block w-full rounded-full border-2 border-black px-4 p-2"
+                type="password"
+                name="password"
+                bind:value={password}
+                required
+            />
+        </label>
+        {#if password}
+            <div
+                class={`${strengh_config[password_strength].length} py-1 mt-2 ${strengh_config[password_strength].color} rounded-full`}
+            ></div>
+            <p
+                class={`block font-semibold ${strengh_config[password_strength].text_color}`}
+            >
+                {strengh_config[password_strength].label}
+            </p>
         {/if}
-    </label>
-    <label class="block font-semibold">
-        Password :
-        <input
-            class="mt-1 block w-full rounded-full border-2 border-black px-4 p-2"
-            type="password"
-            name="password"
-            bind:value={password}
-            required
-        />
-    </label>
-    {#if password}
-        <div
-            class={`${strengh_config[password_strength].length} py-1 mt-2 ${strengh_config[password_strength].color} rounded-full`}
-        ></div>
-        <p
-            class={`block font-semibold ${strengh_config[password_strength].text_color}`}
+        <button
+            type="submit"
+            class="py-2 my-4 w-full block font-semibold rounded-full p-2 ml-full bg-sky-600 text-white"
         >
-            {strengh_config[password_strength].label}
-        </p>
+            Créer un compte
+        </button>
     {/if}
-    <button
-        type="submit"
-        class="py-2 my-4 w-full block font-semibold rounded-full p-2 ml-full bg-sky-600 text-white"
-    >
-        Créer un compte
-    </button>
+    <p>
+        Vous avez déjà un compte ? <a href="/account/log_in">Connectez-vous</a>
+    </p>
 </form>

@@ -1,5 +1,5 @@
 ---
-import LoginForm from "@components/account/log_in_form.svelte";
+import Me from "@components/account/me.svelte";
 import Layout from "@src/layouts/layout.astro";
 ---
 
@@ -7,6 +7,5 @@ import Layout from "@src/layouts/layout.astro";
     title="Create account"
     description="Create a new account by providing an email address and a password."
 >
-    <h1 class="text-2xl text-center">Se connecter</h1>
-    <LoginForm client:load />
+    <Me client:load />
 </Layout>

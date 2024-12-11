@@ -11,8 +11,6 @@
         link_text,
         mobileHidden = false,
     } = $props();
-
-    $inspect(format(date, "cccc d LLLL, p", { locale: fr }));
 </script>
 
 <tr

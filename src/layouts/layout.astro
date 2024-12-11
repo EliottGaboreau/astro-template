@@ -4,8 +4,7 @@ import { fade } from "astro:transitions";
 import "../external/photoswipe.css";
 import "../external/lite-yt-embed.css";
 import Navigation from "@components/navigation.astro";
-import '../styles/main.css';
-
+import "../styles/main.css";
 
 const { title, description } = Astro.props;
 
@@ -34,8 +33,6 @@ const navigation_links = [
         <slot name="header" />
     </head>
 
-    <ViewTransitions />
-
     <body>
         <Navigation navigation_links={navigation_links} />
         <main
@@ -46,6 +43,4 @@ const navigation_links = [
             <slot />
         </main>
     </body>
-
-
 </html>

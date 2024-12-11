@@ -1,8 +1,6 @@
 <script>
     let { events } = $props();
     import EventRow from "./event_row.svelte";
-
-    $inspect(events);
 </script>
 
 <div class="max-w-6xl m-auto">

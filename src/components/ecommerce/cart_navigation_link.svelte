@@ -10,8 +10,6 @@
             0,
         ),
     );
-
-    order.fetchOrder();
 </script>
 
 <a href="/cart">

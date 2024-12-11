@@ -1,5 +1,6 @@
 ---
 import CartNavigationLink from "./ecommerce/cart_navigation_link.svelte";
+import AccountNavigationLink from "./account/account_navigation_link.svelte";
 
 type NavigationLink = {
     href: string;
@@ -31,6 +32,7 @@ const { navigation_links } = Astro.props;
                 ))
             }
             <CartNavigationLink client:load />
+            <AccountNavigationLink client:load />
         </div>
     </div>
 </nav>
