@@ -9,6 +9,12 @@ export interface Item {
 };
 
 let account = $state({});
+let loaded = $state(false)
+
+const isLoggedIn = $derived(
+    Boolean(account && account?.email),
+);
+
 
 export function getAccount() {
 
@@ -17,6 +23,7 @@ export function getAccount() {
         const localValue = localStorage.getItem('account')
         if (localValue)
             account = JSON.parse(localValue)
+        loaded = true
     })
 
 
@@ -68,15 +75,41 @@ export function getAccount() {
     }
 
 
-    const isLoggedIn = $derived(Boolean(account && account?.email))
+    async function logout() {
+        const response = await fetch(
+            `${PUBLIC_PAYLOAD_API_URL}/customers/logout`,
+            {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                    "accept-language": "fr",
+                },
+            },
+        ).then(r => r.json())
+
+        if (response.message) {
+            account = {};
+        }
+
+        return response
+    }
+
+
 
     return {
         get account() {
             return account
         },
+        get loaded() {
+            return loaded
+        },
+        get isLoggedIn() {
+            return isLoggedIn
+        },
         createAccount,
         fetchMe,
         login,
-        isLoggedIn,
+        logout,
     }
 }

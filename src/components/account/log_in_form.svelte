@@ -16,9 +16,18 @@
         const formData = new FormData(e.currentTarget as HTMLFormElement);
         const request_data = Object.fromEntries(formData);
 
-        const data = account.login(request_data.email, request_data.password);
+        const data = await account.login(
+            request_data.email,
+            request_data.password,
+        );
+
+        console.log("tried loggin in, result", data);
 
         responseMessage = data.message;
+        if (responseMessage) {
+            console.log("Logged in, redirecting");
+            window.location.href = "/account";
+        }
         errors = {};
         data.errors?.map((e) =>
             e.data?.map((d) => (errors[d?.field] = d?.message)),

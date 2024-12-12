@@ -29,7 +29,7 @@
         responseMessage = data.message;
 
         if (responseMessage) {
-            account.login(request_data.email, request_data.password);
+            await account.login(request_data.email, request_data.password);
             window.location.href = "/account";
         }
         errors = {};
