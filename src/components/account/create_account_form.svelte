@@ -13,6 +13,7 @@
 
     let responseMessage: string = $state("");
     let errors = $state({});
+    $inspect(errors);
     let sending: boolean = $state(false);
     async function submit(e: SubmitEvent) {
         e.preventDefault();
@@ -34,7 +35,7 @@
         }
         errors = {};
         data.errors?.map((e) =>
-            e.data?.map((d) => (errors[d?.field] = d?.message)),
+            e.data?.errors.map((d) => (errors[d?.path] = d?.message)),
         );
     }
 

@@ -29,9 +29,7 @@
             window.location.href = "/account";
         }
         errors = {};
-        data.errors?.map((e) =>
-            e.data?.map((d) => (errors[d?.field] = d?.message)),
-        );
+        data.errors?.map((e) => e.map((d) => (errors[d?.path] = d?.message)));
     }
 </script>
 
